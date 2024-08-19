@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
+import Input from '../components/input';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -21,27 +22,27 @@ const LoginPage = () => {
           <h2 className="mb-6 text-xl font-semibold lg:text-2xl">Logar</h2>
           <div className="mb-4">
             <label className="block mb-2" htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              placeholder='Insira seu email'
+            <Input
+              type={"email"}
+              id={"email"}
+              placeholder={"Insira seu email"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-            />
+              classname={"w-full p-2 border border-gray-300 rounded"}
+            >
+            </Input>
           </div>
           <div className="mb-4">
             <label className="block mb-2" htmlFor="password">Senha</label>
-            <input
+            <Input
               type={showPassword ? 'text' : 'password'}
-              id="password"
-              placeholder='Insira sua senha'
+              id={"password"}
+              placeholder={"Insira sua senha"} 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-            />
+              classname={"w-full p-2 border border-gray-300 rounded"}
+            >
+            </Input>
           </div>
           <div className="flex items-center justify-between mb-4">
             <div>
