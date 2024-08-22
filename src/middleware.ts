@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import supabase from "./config/supabaseClient";
 
 export function middleware(request:any) {
   const { pathname } = new URL(request.url);
