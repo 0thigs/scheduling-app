@@ -57,7 +57,7 @@ const LoginPage = () => {
             </div>
             <Link
               className='transition-all duration-150 text-zinc-500 hover:text-zinc-700'
-              href={"#"}
+              href={"/register"}
             >
               Registrar-se
             </Link>
