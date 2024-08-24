@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Input from '../components/input';
+import { Login_Register_Background } from '../components/login_register_background';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -70,13 +71,7 @@ const LoginPage = () => {
           </button>
         </form>
       </div>
-      <div
-        className="hidden lg:flex lg:w-1/2 bg-center bg-cover bg-[url('../../public/images/register_login_background.png')]"
-      >
-        <div className="flex items-end justify-center w-full p-8 bg-black bg-opacity-50">
-          <h3 className="text-lg font-light text-center text-white lg:text-2xl">Agilidade e beleza, uma combinação perfeita</h3>
-        </div>
-      </div>
+      <Login_Register_Background/>
     </div>
   );
 };
