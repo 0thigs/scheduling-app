@@ -3,16 +3,26 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
+import signInWithMagicLink from '../auth/auth';
+import isAuth from '../auth/isAuth';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     console.log('Email:', email);
-    console.log('Senha:', password);
+
+    await signInWithMagicLink(email);
+
+    const authenticated = await isAuth();
+
+    if (authenticated) {
+      console.log('Authenticated', authenticated);
+    } else {      
+      console.log('Not authenticated');
+    }
   };
 
   return (
@@ -29,18 +39,6 @@ const LoginPage = () => {
               placeholder={"Insira seu email"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              classname={"w-full p-2 border border-gray-300 rounded"}
-            >
-            </Input>
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="password">Senha</label>
-            <Input
-              type={showPassword ? 'text' : 'password'}
-              id={"password"}
-              placeholder={"Insira sua senha"} 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               classname={"w-full p-2 border border-gray-300 rounded"}
             >
             </Input>

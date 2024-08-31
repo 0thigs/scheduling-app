@@ -7,14 +7,11 @@ import { Login_Register_Background } from '../components/login_register_backgrou
 const RegisterPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmedPassword, setConfirmedPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         console.log('Email:', email);
-        console.log('Senha:', password);
     };
 
     return (
@@ -43,30 +40,6 @@ const RegisterPage = () => {
                             placeholder={"Insira seu email"}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            classname={"w-full p-2 border border-gray-300 rounded"}
-                        >
-                        </Input>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-2" htmlFor="password">Senha</label>
-                        <Input
-                            type={showPassword ? 'text' : 'password'}
-                            id={"password"}
-                            placeholder={"Insira sua senha"}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            classname={"w-full p-2 border border-gray-300 rounded"}
-                        >
-                        </Input>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-2" htmlFor="password">Confirme sua senha</label>
-                        <Input
-                            type={showPassword ? 'text' : 'password'}
-                            id={"ConfirmedPassword"}
-                            placeholder={"Confirme sua senha"}
-                            value={confirmedPassword}
-                            onChange={(e) => setConfirmedPassword(e.target.value)}
                             classname={"w-full p-2 border border-gray-300 rounded"}
                         >
                         </Input>
