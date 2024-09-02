@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
-import signInWithMagicLink from '../auth/auth';
+import signInWithMagicLink from '../auth/signInWithMagicLink';
 import isAuth from '../auth/isAuth';
 
 const LoginPage = () => {
@@ -12,17 +12,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-    console.log('Email:', email);
-
     await signInWithMagicLink(email);
-
-    const authenticated = await isAuth();
-
-    if (authenticated) {
-      console.log('Authenticated', authenticated);
-    } else {      
-      console.log('Not authenticated');
-    }
   };
 
   return (
