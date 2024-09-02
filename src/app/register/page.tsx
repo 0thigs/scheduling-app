@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
+import { handleSignUp } from '../auth/handleSignUp';
 
 const RegisterPage = () => {
     const [name, setName] = useState('');
@@ -11,7 +12,7 @@ const RegisterPage = () => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        console.log('Email:', email);
+        handleSignUp(email, name);
     };
 
     return (
