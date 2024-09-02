@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import supabase from "./utils/supabaseClient";
+import isAuth from "./app/auth/isAuth";
 
 export async function middleware(request: any) {
   const { pathname } = new URL(request.url);
@@ -8,15 +9,15 @@ export async function middleware(request: any) {
     return NextResponse.next();
   }
 
-  const { data: { session } } = await supabase.auth.getSession();
-
-  if (session) {
+  const authenticated = await isAuth();
+  console.log('Authenticated:', authenticated);
+  if (authenticated) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
-  
-  if (!session && pathname !== '/login') {
+
+  if (!authenticated && pathname !== '/login') {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
