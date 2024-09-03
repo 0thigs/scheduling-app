@@ -5,10 +5,6 @@ import isAuth from "./app/auth/isAuth";
 export async function middleware(request: any) {
   const { pathname } = new URL(request.url);
 
-  if (pathname.startsWith('/_next') || pathname.startsWith('/static') || pathname.startsWith('/favicon.ico') || pathname.startsWith('/register') || pathname.startsWith('/about')) {
-    return NextResponse.next();
-  }
-
   const authenticated = await isAuth();
   console.log('Authenticated:', authenticated);
   if (authenticated) {
@@ -22,6 +18,14 @@ export async function middleware(request: any) {
     url.pathname = '/login';
     return NextResponse.redirect(url);
   }
+  else {
+    return NextResponse.next();
+  }
 
-  return NextResponse.next();
 }
+
+export const config = {
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|register|about).*)',
+  ],
+};
