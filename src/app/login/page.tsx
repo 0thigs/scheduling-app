@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
@@ -9,6 +9,10 @@ import isAuth from '../auth/isAuth';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    isAuth();
+  })
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
@@ -34,16 +38,6 @@ const LoginPage = () => {
             </Input>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <div>
-              <input
-                type="checkbox"
-                id="show-password"
-                checked={showPassword}
-                onChange={() => setShowPassword(!showPassword)}
-                className="mr-2"
-              />
-              <label htmlFor="show-password">Mostrar senha</label>
-            </div>
             <Link
               className='transition-all duration-150 text-zinc-500 hover:text-zinc-700'
               href={"/register"}

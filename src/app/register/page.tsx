@@ -46,16 +46,6 @@ const RegisterPage = () => {
                         </Input>
                     </div>
                     <div className="flex items-center justify-between mb-4">
-                        <div>
-                            <input
-                                type="checkbox"
-                                id="show-password"
-                                checked={showPassword}
-                                onChange={() => setShowPassword(!showPassword)}
-                                className="mr-2"
-                            />
-                            <label htmlFor="show-password">Mostrar senha</label>
-                        </div>
                         <Link
                             className='transition-all duration-150 text-zinc-500 hover:text-zinc-700'
                             href={"/login"}
