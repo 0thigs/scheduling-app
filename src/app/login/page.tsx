@@ -4,19 +4,24 @@ import Link from 'next/link';
 import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
 import signInWithMagicLink from '../auth/signInWithMagicLink';
-import isAuth from '../auth/isAuth';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    isAuth();
-  })
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-    await signInWithMagicLink(email);
+    try {
+      const result = await signInWithMagicLink(email);
+      if (result) {
+        toast.success("Link de login enviado para o seu email!");
+      } else {
+        toast.error("Falha ao enviar o link de login. Por favor, tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      toast.error("Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.");
+    }
   };
 
   return (

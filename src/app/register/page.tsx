@@ -4,16 +4,26 @@ import Link from 'next/link';
 import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
 import { handleSignUp } from '../auth/handleSignUp';
+import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
-        handleSignUp(email, name);
-    };
+        try {
+          const result = await handleSignUp(email, name);
+          if (result) {
+            toast.success("Registro realizado com sucesso! Verifique seu email para fazer login.");
+          } else {
+            toast.error("Falha ao registrar. Por favor, tente novamente.");
+          }
+        } catch (error) {
+          console.error("Erro ao registrar:", error);
+          toast.error("Ocorreu um erro ao tentar registrar. Por favor, tente novamente.");
+        }
+      };
 
     return (
         <div className="flex flex-col h-screen lg:flex-row">
