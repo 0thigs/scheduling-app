@@ -10,7 +10,6 @@ export async function addUser(email: string, name: string) {
             },
         ])
         .single();
-
     if (error) {
         console.log("Error adding user:", error);
         return false;
