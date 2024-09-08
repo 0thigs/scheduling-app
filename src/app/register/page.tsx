@@ -3,20 +3,21 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
-import { handleSignUp } from '../auth/handleSignUp';
+import AuthUser from '../auth/authUser';
 import { toast } from 'react-toastify';
 import { Button } from '@nextui-org/react';
 
 const RegisterPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const authUser = new AuthUser();
 
     const handleSubmit = async (e:any) => {
         e.preventDefault();
         try {
-          const result = await handleSignUp(email, name);
-          if (result) {
-            toast.success("Registro realizado com sucesso! Verifique seu email para fazer login.");
+          const isUserAdded = await authUser.handleSignUp(email, name);
+          if (isUserAdded) {
+            toast.success("Registro realizado com sucesso!");
           } else {
             toast.error("Falha ao registrar. Por favor, tente novamente.");
           }
