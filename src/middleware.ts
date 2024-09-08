@@ -1,19 +1,22 @@
 import { NextResponse } from "next/server";
 import supabase from "./utils/supabaseClient";
-import isAuth from "./app/auth/isAuth";
+import AuthUser from "./app/auth/authUser";
 
 export async function middleware(request: any) {
+
+  const authUser = new AuthUser();
   const { pathname } = new URL(request.url);
 
-  const authenticated = await isAuth();
-  console.log('Authenticated:', authenticated);
-  if (authenticated) {
+  const isLoggedIn = await authUser.isAuth();
+  console.log("Autenticado no middleware", isLoggedIn);
+
+  if (isLoggedIn) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
 
-  if (!authenticated && pathname !== '/login') {
+  if (!isLoggedIn && pathname !== '/login') {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
@@ -21,7 +24,6 @@ export async function middleware(request: any) {
   else {
     return NextResponse.next();
   }
-
 }
 
 export const config = {
