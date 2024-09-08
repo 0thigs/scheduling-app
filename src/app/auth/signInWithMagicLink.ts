@@ -15,7 +15,7 @@ export default async function signInWithMagicLink(email: any) {
   const { error: signInError } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${window.location.origin}/dashboard`,
+      emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : undefined,
     }
   });
 
@@ -26,4 +26,3 @@ export default async function signInWithMagicLink(email: any) {
 
   return 'Magic link enviado com sucesso para ' + email;
 }
-

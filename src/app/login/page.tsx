@@ -5,15 +5,18 @@ import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
 import signInWithMagicLink from '../auth/signInWithMagicLink';
 import { toast } from 'react-toastify';
+import { Button } from '@nextui-org/button';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
+  const [isSent, setIsSent] = useState(false);
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     try {
       const result = await signInWithMagicLink(email);
       if (result) {
+        setIsSent(true);
         toast.success("Link de login enviado para o seu email!");
       } else {
         toast.error("Falha ao enviar o link de login. Por favor, tente novamente.");
@@ -50,12 +53,7 @@ const LoginPage = () => {
               Registrar-se
             </Link>
           </div>
-          <button
-            type="submit"
-            className="w-full p-2 text-white bg-black rounded"
-          >
-            Logar
-          </button>
+          <Button type='submit' className='w-full p-2 text-white bg-black rounded'>Login</Button>
         </form>
       </div>
       <Login_Register_Background/>

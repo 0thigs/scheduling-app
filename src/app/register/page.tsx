@@ -5,6 +5,7 @@ import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
 import { handleSignUp } from '../auth/handleSignUp';
 import { toast } from 'react-toastify';
+import { Button } from '@nextui-org/react';
 
 const RegisterPage = () => {
     const [name, setName] = useState('');
@@ -63,12 +64,7 @@ const RegisterPage = () => {
                             Logar-se
                         </Link>
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full p-2 text-white bg-black rounded"
-                    >
-                        Registrar
-                    </button>
+                    <Button type='submit' className='w-full p-2 text-white bg-black rounded'>Registrar</Button>
                 </form>
             </div>
             <Login_Register_Background />
