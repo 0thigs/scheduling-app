@@ -31,3 +31,5 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|register|about|dashboard).*)',
   ],
 };
+
+//GIVE A WAY TO KNOW IF THE USER IS AUTHENTICATED
