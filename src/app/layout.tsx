@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
-import './globals.css'
-import 'react-toastify/dist/ReactToastify.css';
+import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { Providers } from "./providers";
 
@@ -11,9 +11,12 @@ export const metadata = {
   description: "An app to make a hair salon appointments",
 };
 
-export default function RootLayout({ children }:any) {
+export default function RootLayout({ children }: any) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+      </head>
       <Providers>
         <body className={inter.className}>
           {children}
