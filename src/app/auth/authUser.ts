@@ -43,11 +43,6 @@ class AuthUser {
     async isAuth() {
         const { data: { user }, error } = await supabase.auth.getUser();
 
-        if (error) {
-            console.error('Erro ao verificar usuário:', error);
-            return false;
-        }
-
         if (user) {
             console.log('Usuário está autenticado', user);
             return true;
