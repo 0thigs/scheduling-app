@@ -9,24 +9,24 @@ import {
   TableCell,
   TableColumn,
 } from "@nextui-org/react";
+import Header from "../components/header";
 import AuthUser from "../auth/authUser";
+import { Title } from "../components/title";
 
 export default function DashboardPage() {
   const authUser = new AuthUser();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [rows, setRows] = useState([{}]);
-  const [columns, setColumns] = useState([
+  const columns = [
     { key: "service", label: "Serviço" },
-    { key: "date", label: "Data" },
+    { key: "date", label: "Data do Serviço" },
     { key: "value", label: "Valor" },
     { key: "address", label: "Endereço" },
-  ]);
+  ];
 
   useEffect(() => {
     async function checkAuth() {
       const status = await authUser.isAuth();
       console.log("Autenticado no dashboard", status);
-      setIsLoggedIn(status);
     }
     checkAuth();
 
@@ -41,39 +41,39 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="min-h-screen px-4 py-10 bg-gray-100 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100">
+      <Header />
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-        <div className="flex items-center justify-between px-4 py-5 sm:px-6">
-          <h1 className="text-2xl font-bold">Agendamentos Realizados</h1>
-          <Button color="primary" onClick={(_) => {}}>
+        <div className="flex items-center justify-between px-4 py-5 border-b border-gray-200 sm:px-6">
+          <Title title={"Seus Agendamentos"} />
+          <Button color="primary" className="rounded-full" onClick={(_) => {}}>
+            <i className="text-2xl ph-bold ph-plus-circle"></i>
             Agendar
           </Button>
         </div>
-        <div className="border-t border-gray-200">
-          <Table
-            aria-label="Agendamentos Table"
-            className="h-auto min-w-full"
-            selectionMode="none"
-          >
-            <TableHeader>
-              {columns.map((column) => (
-                <TableColumn key={column.key} align="start">
-                  {column.label}
-                </TableColumn>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {rows.map((item: any) => (
-                <TableRow key={item.key}>
-                  <TableCell>{item.service}</TableCell>
-                  <TableCell>{item.date}</TableCell>
-                  <TableCell>{item.value}</TableCell>
-                  <TableCell>{item.address}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <Table
+          aria-label="Agendamentos Table"
+          className="w-full p-10 mx-auto sm:w-3.5/4"
+          selectionMode="single"
+        >
+          <TableHeader>
+            {columns.map((column) => (
+              <TableColumn key={column.key} align="start">
+                {column.label}
+              </TableColumn>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {rows.map((item: any) => (
+              <TableRow key={item.key}>
+                <TableCell>{item.service}</TableCell>
+                <TableCell>{item.date}</TableCell>
+                <TableCell>{item.value}</TableCell>
+                <TableCell>{item.address}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
