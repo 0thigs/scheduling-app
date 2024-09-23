@@ -30,6 +30,7 @@ export default function DashboardPage() {
     }
     checkAuth();
 
+    // Just for testing
     const generatedRows = Array.from({ length: 10 }, (_, index) => ({
       key: index + 1,
       service: `Serviço ${index + 1}`,
