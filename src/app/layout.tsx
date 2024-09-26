@@ -7,22 +7,22 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Appointment App",
-  description: "An app to make a hair salon appointments",
+	title: "Appointment App",
+	description: "An app to make a hair salon appointments",
 };
 
 export default function RootLayout({ children }: any) {
-  return (
-    <html lang="en">
-      <head>
-        <script src="https://unpkg.com/@phosphor-icons/web"></script>
-      </head>
-      <Providers>
-        <body className={inter.className}>
-          {children}
-          <ToastContainer />
-        </body>
-      </Providers>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<head>
+				<script src="https://unpkg.com/@phosphor-icons/web" />
+			</head>
+			<Providers>
+				<body className={inter.className}>
+					{children}
+					<ToastContainer />
+				</body>
+			</Providers>
+		</html>
+	);
 }
