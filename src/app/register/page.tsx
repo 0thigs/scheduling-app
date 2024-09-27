@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Input from "../components/input";
 import { Login_Register_Background } from "../components/login_register_background";
-import AuthUser from "../auth/authUser";
+import AuthUser from "../../server/auth/authUser";
 import { toast } from "react-toastify";
 import { Button } from "@nextui-org/react";
 

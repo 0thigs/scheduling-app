@@ -5,12 +5,11 @@ import Input from '../components/input';
 import { Login_Register_Background } from '../components/login_register_background';
 import { toast } from 'react-toastify';
 import { Button } from '@nextui-org/button';
-import AuthUser from '../auth/authUser';
+import AuthUser from '../../server/auth/authUser';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
-  const [isSent, setIsSent] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSent, setIsSent] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const authUser = new AuthUser();
 
@@ -29,19 +28,18 @@ const LoginPage = () => {
   
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-    setIsSubmitted(true);
     try {
       const result = await authUser.handleSignInWithMagicLink(email);
       if (result) {
-        setIsSent(true);
+        setIsSent("true");
         toast.success("Link de login enviado para o seu email!");
       } else {
-        setIsSent(false);
+        setIsSent("false");
         toast.error("Falha ao enviar o link de login. Por favor, tente novamente.");
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      setIsSent(false);
+      setIsSent("false");
       toast.error("Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.");
     }
   };
@@ -72,17 +70,18 @@ const LoginPage = () => {
               Registrar-se
             </Link>
           </div>
-          {isSubmitted && (
-            isSent ? (
-              <p className="p-4 mb-4 text-green-600 bg-green-100 border border-green-300 rounded-md">
+          {
+          isSent === "true" && 
+          <p className="p-4 mb-4 text-green-600 bg-green-100 border border-green-300 rounded-md">
                 Link de login enviado para o seu email!
-              </p>
-            ) : (
-              <p className="p-4 mb-4 text-red-600 bg-red-100 border border-red-300 rounded-md">
+          </p>
+          }
+          {
+          isSent === "false" &&
+          <p className="p-4 mb-4 text-red-600 bg-red-100 border border-red-300 rounded-md">
                 Algo deu errado!
-              </p>
-            )
-          )}
+          </p>
+          }
           <Button type='submit' className='w-full p-2 text-white bg-black rounded'>Login</Button>
         </form>
       </div>
