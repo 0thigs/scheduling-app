@@ -4,8 +4,8 @@ import { addUser } from "../services/userService";
 class AuthUser {
 
     // Registra um novo usuário
-    async handleSignUp(email: string, name: string) {
-        const userData = await addUser(email, name);
+    async handleSignUp(name: string, email: string, password: string) {
+        const userData = await addUser(name, email, password);
         if (userData) {
             return true;
         } else {
@@ -13,30 +13,8 @@ class AuthUser {
         }
     }
 
-    // Envia um magic link para login
-    async handleSignInWithMagicLink(email: string) {
-        const { data: user, error } = await supabase
-            .from('users')
-            .select('email')
-            .eq('email', email)
-            .single();
-
-        if (error || !user) {
-            throw new Error('Usuario não encontrado. Verifique se o email está correto ou registre-se.');
-        }
-
-        const { error: signInError } = await supabase.auth.signInWithOtp({
-            email,
-            options: {
-                emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : undefined,
-            }
-        });
-
-        if (signInError) {
-            throw new Error('Erro ao enviar o magic link. Tente novamente mais tarde. ' + signInError.message);
-        }
-
-        return 'Magic link enviado com sucesso para ' + email;
+    async handleLogin(email: string, password: string) {
+        
     }
 
     // Verifica se o usuário está autenticado
