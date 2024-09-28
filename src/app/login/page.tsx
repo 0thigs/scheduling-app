@@ -9,6 +9,7 @@ import AuthUser from '../../server/auth/authUser';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isSent, setIsSent] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const authUser = new AuthUser();
@@ -29,8 +30,8 @@ const LoginPage = () => {
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     try {
-      const result = await authUser.handleSignInWithMagicLink(email);
-      if (result) {
+      const result = await authUser.handleLogin(email, password);
+      if (result !== null && result !== undefined) {
         setIsSent("true");
         toast.success("Link de login enviado para o seu email!");
       } else {
@@ -58,6 +59,18 @@ const LoginPage = () => {
               placeholder={"Insira seu email"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              classname={"w-full p-2 border border-gray-300 rounded"}
+            >
+            </Input>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2" htmlFor="email">Senha</label>
+            <Input
+              type={"password"}
+              id={"password"}
+              placeholder={"Insira sua senha"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               classname={"w-full p-2 border border-gray-300 rounded"}
             >
             </Input>
