@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Input from "../components/input";
 import { Login_Register_Background } from "../components/login_register_background";
-import AuthUser from "../auth/authUser";
+import AuthUser from "../../server/auth/authUser";
 import { toast } from "react-toastify";
 import { Button } from "@nextui-org/react";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isSent, setIsSent] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const authUser = new AuthUser();
@@ -27,7 +28,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const isUserAdded = await authUser.handleSignUp(email, name);
+      const isUserAdded = await authUser.handleSignUp(name, email, password);
       if (isUserAdded) {
         setIsSubmitted(true);
         setIsSent(true);
@@ -77,6 +78,19 @@ const RegisterPage = () => {
               placeholder={"Insira seu email"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              classname={"w-full p-2 border border-gray-300 rounded"}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2" htmlFor="password">
+              Senha
+            </label>
+            <Input
+              type={"password"}
+              id={"password"}
+              placeholder={"Insira sua senha"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               classname={"w-full p-2 border border-gray-300 rounded"}
             />
           </div>

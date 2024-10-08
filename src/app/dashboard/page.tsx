@@ -10,7 +10,7 @@ import {
 	TableColumn,
 } from "@nextui-org/react";
 import Header from "../components/header";
-import AuthUser from "../auth/authUser";
+import AuthUser from "../../server/auth/authUser";
 import { Title } from "../components/title";
 
 export default function DashboardPage() {
@@ -26,7 +26,7 @@ export default function DashboardPage() {
 	useEffect(() => {
 		async function checkAuth() {
 			const status = await authUser.isAuth();
-			console.log("Autenticado no dashboard", status);
+			console.log("Autenticado no dashboard", status)
 		}
 		checkAuth();
 

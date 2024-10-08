@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import supabase from "./utils/supabaseClient";
-import AuthUser from "./app/auth/authUser";
+import AuthUser from "./server/auth/authUser";
 
 export async function middleware(request: any) {
 
