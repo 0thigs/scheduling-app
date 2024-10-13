@@ -11,36 +11,37 @@ const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSent, setIsSent] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const authUser = new AuthUser();
 
   useEffect(() => {
     const checkAuth = async () => {
-      const isLoggedIn = await authUser.isAuth();
-      if (isLoggedIn) {
-        window.location.href = "/dashboard";
+      try {
+        const isLoggedIn = await authUser.isAuth();
+        if (isLoggedIn) {
+          window.location.href = "/dashboard";
+        }
+      } catch (error) {
+        console.error("Erro ao verificar autenticação:", error);
       }
     };
     checkAuth();
-  }, []);
+  }, [authUser]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setIsSending(true);
     try {
-      const isUserAdded = await authUser.handleSignUp(name, email, password);
-      if (isUserAdded) {
-        setIsSubmitted(true);
-        setIsSent(true);
-        toast.success("Registro realizado com sucesso!");
-      } else {
-        toast.error("Falha ao registrar. Por favor, tente novamente.");
-      }
-    } catch (error) {
-      console.error("Erro ao registrar:", error);
-      toast.error(
-        "Ocorreu um erro ao tentar registrar. Por favor, tente novamente."
-      );
+      await authUser.handleSignUp(name, email, password);
+      setIsSubmitted(true);
+      toast.success("Registro realizado com sucesso!");
+      window.location.href = "/login";
+    } catch (error: any) {
+      console.error("Erro ao registrar:", error.message);
+      toast.error(`Falha no registro: ${error.message}`);
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -103,21 +104,25 @@ const RegisterPage = () => {
               Logar-se
             </Link>
           </div>
-          {isSubmitted &&
-            (isSent ? (
-              <p className="p-4 mb-4 text-green-600 bg-green-100 border border-green-300 rounded-md">
-                Cadastro realizado com sucesso!
-              </p>
-            ) : (
-              <p className="p-4 mb-4 text-red-600 bg-red-100 border border-red-300 rounded-md">
-                Algo deu errado com o cadastro!
-              </p>
-            ))}
+
+          {isSending && (
+            <p className="p-4 mb-4 text-blue-600 bg-blue-100 border border-blue-300 rounded-md">
+              Processando registro...
+            </p>
+          )}
+
+          {isSubmitted && (
+            <p className="p-4 mb-4 text-green-600 bg-green-100 border border-green-300 rounded-md">
+              Cadastro realizado com sucesso!
+            </p>
+          )}
+
           <Button
             type="submit"
             className="w-full p-2 text-white bg-black rounded"
+            disabled={isSending}
           >
-            Registrar
+            {isSending ? "Registrando..." : "Registrar"}
           </Button>
         </form>
       </div>
