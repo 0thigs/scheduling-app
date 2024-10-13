@@ -13,6 +13,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const authUser = new AuthUser();
 
   useEffect(() => {
@@ -43,6 +44,10 @@ const RegisterPage = () => {
     } finally {
       setIsSending(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((isOpen) => !isOpen);
   };
 
   return (
@@ -86,14 +91,23 @@ const RegisterPage = () => {
             <label className="block mb-2" htmlFor="password">
               Senha
             </label>
-            <Input
-              type={"password"}
-              id={"password"}
-              placeholder={"Insira sua senha"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              classname={"w-full p-2 border border-gray-300 rounded"}
-            />
+            <div className="flex items-center justify-between w-full p-2 border border-gray-300 rounded">
+              <Input
+                type={showPassword ? "text" : "password"}
+                id={"password"}
+                placeholder={"Insira sua senha"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                classname={"outline-none w-full"}
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="ml-2 text-gray-600 focus:outline-none"
+              >
+                {showPassword ? "Ocultar" : "Mostrar"}
+              </button>
+            </div>
           </div>
 
           <div className="flex items-center justify-between mb-4">
