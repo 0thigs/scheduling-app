@@ -4,9 +4,9 @@
 
 ## Authentication and User Management
 
-- [ ] Improve error handling in the authentication process
-- [ ] Implement logout functionality
+- [x] Improve error handling in the authentication process
 - [ ] Create user profile page (view and edit)
+- [ ] Implement logout functionality
 - [ ] Implement refresh token handling
 
 ## Security and Route Protection
